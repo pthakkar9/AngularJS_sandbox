@@ -10,9 +10,10 @@
       <h3>
 
         {{product.name}}
-        <em class="pull-right">${{product.price}}</em>
+        <em class="pull-right">{{product.price | currency}}</em>
 
       </h3>
+      <button ng-hide="product.soldOut">Add to Cart!</button>
     </div>
   </body>
 </html>
