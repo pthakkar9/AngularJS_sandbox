@@ -21,10 +21,10 @@
       <button ng-hide="product.soldOut">Add to Cart!</button>
 
       <section ng-show="product.images.length" ng-controller="GalleryController as gallery">
-        <img ng-src="{{product.images[gallery.current]}}" />
+        <img height = "100" width="100" ng-src="{{product.images[gallery.current]}}" />
         <ul class="list-inline thumbs">
           <li class="thumbnail" ng-repeat="image in product.images">
-            <img ng-src="{{image}}" ng-click="gallery.setCurrent($index)" />
+            <img height = "50" width="50" ng-src="{{image}}" ng-click="gallery.setCurrent($index)" />
           </li>
         </ul>
       </section>
