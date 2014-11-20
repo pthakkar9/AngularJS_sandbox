@@ -6,6 +6,11 @@
     <script type="text/javascript" src="app.js"></script>
   </head>
   <body class="container" ng-controller="StoreController as store">
+      <!--  Store Header  -->
+    <header>
+      <h1 class="text-center">Angular Sandbox</h1>
+    </header>
+
     <div class="product row" ng-repeat="product in store.products">
       <h3>
 
@@ -14,6 +19,38 @@
 
       </h3>
       <button ng-hide="product.soldOut">Add to Cart!</button>
+
+      <section ng-show="product.images.length" ng-controller="GalleryController as gallery">
+        <img ng-src="{{product.images[gallery.current]}}" />
+        <ul class="list-inline thumbs">
+          <li class="thumbnail" ng-repeat="image in product.images">
+            <img ng-src="{{image}}" ng-click="gallery.setCurrent($index)" />
+          </li>
+        </ul>
+      </section>
+
+      <!-- Product Tabs -->
+      <section class="tab" ng-controller="TabController as tab">
+        <ul class="nav nav-pills">
+          <li ng-class="{ active: tab.isSet(1) }">
+            <a href ng-click="tab.setTab(1)">Description</a></li>
+          <li ng-class="{ active: tab.isSet(2) }">
+            <a href ng-click="tab.setTab(2)">Specs</a></li>
+          <li ng-class="{ active: tab.isSet(3) }">
+            <a href ng-click="tab.setTab(3)">Reviews</a></li>
+        </ul>
+        <div ng-show="tab.isSet(1)">
+          <h4>Description</h4>
+          <blockquote>{{product.description}}</blockquote>
+        </div>
+        <div ng-show="tab.isSet(2)">
+          <h4>Specs</h4>
+          <blockquote>Shine: {{product.shine}}</blockquote>
+        </div>
+        <div ng-show="tab.isSet(3)">
+          <h4>Reviews</h4>
+        </div>
+      </section>
     </div>
   </body>
 </html>
