@@ -5,52 +5,103 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
   </head>
+
   <body class="container" ng-controller="StoreController as store">
-      <!--  Store Header  -->
+    
+    <!--  Store Header  -->
     <header>
       <h1 class="text-center">Angular Sandbox</h1>
+      <h2 class="text-center">Code is at <a>https://github.com/pthakkar9/AngularJS_sandbox</a></h2>
     </header>
 
-    <div class="product row" ng-repeat="product in store.products">
-      <h3>
+    <div class="list group">
+      <div class="list group item row" ng-repeat="product in store.products">
+        <h3 class="product details">
+          {{product.name}}
+          <em class="pull-right">{{product.price | currency}}</em>
+        </h3>
 
-        {{product.name}}
-        <em class="pull-right">{{product.price | currency}}</em>
+        <button ng-hide="product.soldOut">Add to Cart!</button>
 
-      </h3>
-      <button ng-hide="product.soldOut">Add to Cart!</button>
+        <!-- Product Images -->
+        <section ng-show="product.images.length" ng-controller="GalleryController as gallery">
+          <img height = "50" width="50" ng-src="{{product.images[gallery.current]}}" />
+          <ul class="list-inline thumbs">
+            <li class="thumbnail" ng-repeat="image in product.images">
+              <img height = "20" width="20" ng-src="{{image}}" ng-click="gallery.setCurrent($index)" />
+            </li>
+          </ul>
+        </section>
 
-      <section ng-show="product.images.length" ng-controller="GalleryController as gallery">
-        <img height = "100" width="100" ng-src="{{product.images[gallery.current]}}" />
-        <ul class="list-inline thumbs">
-          <li class="thumbnail" ng-repeat="image in product.images">
-            <img height = "50" width="50" ng-src="{{image}}" ng-click="gallery.setCurrent($index)" />
-          </li>
-        </ul>
-      </section>
+        <!-- Product Tabs -->
+        <section class="tab" ng-controller="TabController as tab">
+          <ul class="nav nav-pills">
+            <li ng-class="{ active: tab.isSet(1) }">
+              <a href ng-click="tab.setTab(1)">Description</a></li>
+            <li ng-class="{ active: tab.isSet(2) }">
+              <a href ng-click="tab.setTab(2)">Specs</a></li>
+            <li ng-class="{ active: tab.isSet(3) }">
+              <a href ng-click="tab.setTab(3)">Reviews</a></li>
+          </ul>
 
-      <!-- Product Tabs -->
-      <section class="tab" ng-controller="TabController as tab">
-        <ul class="nav nav-pills">
-          <li ng-class="{ active: tab.isSet(1) }">
-            <a href ng-click="tab.setTab(1)">Description</a></li>
-          <li ng-class="{ active: tab.isSet(2) }">
-            <a href ng-click="tab.setTab(2)">Specs</a></li>
-          <li ng-class="{ active: tab.isSet(3) }">
-            <a href ng-click="tab.setTab(3)">Reviews</a></li>
-        </ul>
-        <div ng-show="tab.isSet(1)">
-          <h4>Description</h4>
-          <blockquote>{{product.description}}</blockquote>
-        </div>
-        <div ng-show="tab.isSet(2)">
-          <h4>Specs</h4>
-          <blockquote>Shine: {{product.shine}}</blockquote>
-        </div>
-        <div ng-show="tab.isSet(3)">
-          <h4>Reviews</h4>
-        </div>
-      </section>
+          <!--  Description Tab's Content  -->
+          <div ng-show="tab.isSet(1)">
+            <h4>Description</h4>
+            <blockquote>{{product.description}}</blockquote>
+          </div>
+
+          <!--  TSpec Tab's Content  -->
+          <div ng-show="tab.isSet(2)">
+            <h4>Specs</h4>
+            <blockquote>Shine: {{product.shine}}</blockquote>
+          </div>
+
+          <!--  Review Tab's Content  -->
+          <div ng-show="tab.isSet(3)">
+
+            <!--  List of Reviews -->
+            <ul>
+              <h4>Reviews</h4>
+                <li ng-repeat="review in product.reviews">
+                    <blockquote>
+                      <strong>{{review.stars}} Stars</strong>
+                      {{review.body}}
+                      <cite class="clearfix">-{{review.author}}</cite>
+                    </blockquote>
+                </li>
+            </ul>
+
+            <!-- Review Form with Live Perview -->
+            <form name="reviewForm">     
+              <!--  Live Preview -->
+              <blockquote>
+                <strong>{{review.stars}} Stars</strong>
+                {{review.body}}
+                <cite class="clearfix">-{{review.author}}</cite>
+              </blockquote> 
+              
+              <!--  Review Form -->
+              <h4>Submit a Review</h4>
+              <fieldset class="form-group">
+                <select ng-model="review.stars" class="form-control" ng-options="stars for stars in [5,4,3,2,1]"  title="Stars">
+                  <option value="">Rate the Product</option>
+                </select>
+              </fieldset>
+              <fieldset class="form-group">
+                <textarea ng-model="review.body" class="form-control" placeholder="Write a short review of the product..." title="Review"></textarea>
+              </fieldset>
+              <fieldset class="form-group">
+                <input ng-model="review.author" type="email" class="form-control" placeholder="awesome@angular.com" title="Email" />
+              </fieldset>
+              <fieldset class="form-group">
+                <input type="submit" class="btn btn-primary pull-right" value="Submit Review" />
+              </fieldset>
+
+            </form>
+          </div>
+        </section>
+      </div>
     </div>
+
   </body>
 </html>
