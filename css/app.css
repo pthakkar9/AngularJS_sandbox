@@ -1,0 +1,8 @@
+.ng-invalid.ng-dirty{
+	border-color: red; /* user types and it's invalid */
+}
+
+.ng-valid.ng-dirty{
+	border-color: green; /* user types and it's valid */
+}
+
