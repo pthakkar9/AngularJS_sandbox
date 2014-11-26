@@ -1,4 +1,5 @@
 (function() {
+    var imagesPath = "resources/images";
     var app = angular.module('gemStore', []);
     app.controller('StoreController', function() {
         this.products = gems;
@@ -27,12 +28,20 @@
             this.review = {};
         };
     });
+
+    app.directive('productDescription', function(){
+
+        return {
+
+        };
+
+    });
     var gems = [{
         name: 'Azurite',
         price: 2.95,
         soldOut: false,
         description: "description comes here",
-        images: ["resources/images/gem-02.gif", "resources/images/gem-05.gif", "resources/images/gem-09.gif"],
+        images: [imagesPath + "/gem-05.gif", imagesPath + "/gem-09.gif"],
         reviews: [{
             stars: 5,
             body: "I love this gem!",
@@ -49,13 +58,13 @@
         price: 5.95,
         soldOut: true,
         description: "description comes here",
-        images: ["resources/images/gem-02.gif", "resources/images/gem-05.gif", "resources/images/gem-09.gif"]
+        images: [imagesPath + "/gem-02.gif", imagesPath + "/gem-09.gif"]
     }, {
         name: 'Zircon',
         price: 3.95,
         soldOut: false,
         description: "description comes here",
-        images: ["resources/images/gem-02.gif", "resources/images/gem-05.gif", "resources/images/gem-09.gif"],
+        images: [imagesPath + "/gem-02.gif", imagesPath + "/gem-05.gif"],
         reviews: [{
             stars: 5,
             body: "I love this gem!",
@@ -72,25 +81,25 @@
         price: 1,
         soldOut: false,
         description: "description comes here",
-        images: ["resources/images/gem-02.gif", "resources/images/gem-05.gif", "resources/images/gem-09.gif"]
+        images: [imagesPath + "/gem-05.gif", imagesPath + "/gem-09.gif"]
     }, {
         name: 'Citrine',
         price: 21.3,
         soldOut: true,
         description: "description comes here",
-        images: ["resources/images/gem-02.gif", "resources/images/gem-05.gif", "resources/images/gem-09.gif"]
+        images: [imagesPath + "/gem-02.gif", imagesPath + "/gem-05.gif", imagesPath + "/gem-09.gif"]
     }, {
         name: 'Coral',
         price: 2.99,
         soldOut: false,
         description: "description comes here",
-        images: ["resources/images/gem-02.gif", "resources/images/gem-05.gif", "resources/images/gem-09.gif"]
+        images: [imagesPath + "/gem-02.gif", imagesPath + "/gem-09.gif"]
     }, {
         name: 'Topaz',
         price: 11.34,
         soldOut: false,
         description: "description comes here",
-        images: ["resources/images/gem-02.gif", "resources/images/gem-05.gif", "resources/images/gem-09.gif"],
+        images: [imagesPath + "/gem-05.gif", imagesPath + "/gem-09.gif"],
         reviews: [{
             stars: 5,
             body: "I love this gem!",
